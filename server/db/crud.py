@@ -1,7 +1,7 @@
 from sqlalchemy.exc import IntegrityError
 
-from server.db.schemas import Questions
-from server.utils import request_questions
+from db.schemas import Questions
+from utils import request_questions
 from datetime import datetime
 
 
