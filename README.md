@@ -11,20 +11,40 @@
 4. Собрать образ - docker-compose build
 5. Запустить контейнеры командой -docker-compose up
 
-Проверить можно, сделав запрос по адресу - http://0.0.0.0:8000/questions
+Пример CURL POST запроса:
+Request URL
+http://0.0.0.0:8000/users
 
-пример запроса:
+curl -X 'POST' \
+  'http://0.0.0.0:8000/users' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "name"
+}'
+Ответ:
+Server response 201 
 
-```import asyncio
-import httpx
+Response body
+{
+  "user_id": "68f60265-1969-4e9c-900d-2b2fb02bcba2",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb21lIjoiU2FzYSJ9.JIEtt6WkUxHbFNL4pb07ICemeLUCHaHf62l0wRshWfE"
+}
 
-async def test_request():
-    async with httpx.AsyncClient() as client:
-        r = await client.post('http://0.0.0.0:8000/questions', json={'questions_num': 1})
-    return r.json()
 
-print(asyncio.run(test_request()))
-```
+Пример CURL POST запроса:
+Request URL
+http://0.0.0.0:8000/users/wav
+ 
+curl -X 'POST' \
+  'http://0.0.0.0:8000/users/wav' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'audio_file=@sample-3s.wav;type=audio/wav' \
+  -F 'data={   "user_id": "68f60265-1969-4e9c-900d-2b2fb02bcba2",   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb21lIjoiU2FzYSJ9.JIEtt6WkUxHbFNL4pb07ICemeLUCHaHf62l0wRshWfE" }'
 
-пример ответа на запрос: {'question': 'Overly awed & fascinated in the presence of celebrities'}
+Ответ:
+Server response 201 
 
+Response body
+"http://0.0.0.0:8000/record?id=2859c7f4-5610-48d2-9d0b-3c66a31ad7bb&user=68f60265-1969-4e9c-900d-2b2fb02bcba2"
